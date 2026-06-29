@@ -17,6 +17,14 @@ hf-cache/
 # Logs
 *.log
 
+# PyInstaller build artifacts
+build/
+dist/
+*.spec
+
+# Built launcher (large binary; build it with build_exe.bat)
+LiveTranslate.exe
+
 # OS / editor
 .DS_Store
 Thumbs.db

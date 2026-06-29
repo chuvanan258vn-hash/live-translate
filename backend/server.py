@@ -34,16 +34,21 @@ from transformers import MarianMTModel, MarianTokenizer
 # ----------------------------------------------------------------------------
 # Cau hinh - chinh o day neu muon doi do nhanh/chinh xac
 # ----------------------------------------------------------------------------
-WHISPER_MODEL = "small.en"        # nhanh hon: "base.en" | chinh xac hon: "medium.en"
+WHISPER_MODEL = "small"           # nhanh hon: "base.en" | chinh xac hon: "medium.en"
 WHISPER_COMPUTE = "int8"          # toi uu cho CPU
-MT_MODEL = "Helsinki-NLP/opus-mt-en-vi"   # nhe & nhanh; chat luong hon: "vinai/vinai-translate-en2vi"
 
 SAMPLE_RATE = 16000
 CHUNK_SECONDS = 4.0               # gom bao nhieu giay audio moi lan transcribe
 MIN_SAMPLES = int(SAMPLE_RATE * CHUNK_SECONDS)
 PORT = 8000
 
-FRONTEND_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "frontend")
+_HERE = os.path.dirname(os.path.abspath(__file__))
+FRONTEND_DIR = os.path.join(_HERE, "..", "frontend")
+
+# Model dich da tai san ve ./models/opus-mt-en-vi (xem download_models.py).
+# Neu thu muc do chua co thi fallback ve repo tren HuggingFace.
+_LOCAL_MT = os.path.join(_HERE, "models", "opus-mt-en-vi")
+MT_MODEL = _LOCAL_MT if os.path.isdir(_LOCAL_MT) else "Helsinki-NLP/opus-mt-en-vi"
 
 # ----------------------------------------------------------------------------
 # Tai model (1 lan luc khoi dong)
